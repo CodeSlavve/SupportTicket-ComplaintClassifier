@@ -1,0 +1,82 @@
+# =========================
+# Python
+# =========================
+
+__pycache__/
+*.py[cod]
+*$py.class
+
+# =========================
+# Virtual environments
+# =========================
+
+venv/
+.venv/
+env/
+.env/
+ENV/
+
+# =========================
+# Environment variables / secrets
+# =========================
+
+.env
+*.env
+
+# =========================
+# Data
+# =========================
+
+data/*.csv
+data/*.tsv
+data/*.xlsx
+data/*.json
+
+# Keep the data folder itself
+!data/.gitkeep
+
+# =========================
+# Model artifacts
+# =========================
+
+*.pkl
+*.pickle
+*.joblib
+*.h5
+*.hdf5
+*.keras
+*.pt
+*.pth
+*.onnx
+*.safetensors
+
+# Model directories
+models/
+artifacts/
+checkpoints/
+
+# =========================
+# Jupyter
+# =========================
+
+.ipynb_checkpoints/
+
+# =========================
+# IDE / Editor
+# =========================
+
+.vscode/
+.idea/
+
+# =========================
+# Logs
+# =========================
+
+*.log
+
+# =========================
+# OS files
+# =========================
+
+.DS_Store
+Thumbs.db
