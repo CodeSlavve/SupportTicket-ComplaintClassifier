@@ -31,6 +31,7 @@ data/*.csv
 data/*.tsv
 data/*.xlsx
 data/*.json
+data/*.parquet
 
 # Keep the data folder itself
 !data/.gitkeep
