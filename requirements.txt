@@ -6,3 +6,4 @@ seaborn
 ipykernel
 mlflow
 pyarrow
+xgboost
