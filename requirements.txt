@@ -1,12 +1,30 @@
+# --- Core Data ---
 pandas
 numpy
+pyarrow  # faster parquet loading for CFPB dataset
+
+# --- ML / NLP Models ---
 scikit-learn
+xgboost
+torch
+transformers
+datasets  # for loading/tokenizing DistilBERT data
+
+# --- Tracking & Experimentation ---
+mlflow
+
+# --- Visualization (for EDA & Error Analysis) ---
 matplotlib
 seaborn
+
+# --- Notebook ---
 ipykernel
-mlflow
-pyarrow
-xgboost
-transformers
-torch
-datasets
+
+# --- API ---
+fastapi
+uvicorn      # ASGI server to run FastAPI
+pydantic     # Request/response validation for FastAPI
+
+# --- Testing ---
+pytest       # Unit tests for /predict
+httpx        # Needed to test FastAPI with TestClient
