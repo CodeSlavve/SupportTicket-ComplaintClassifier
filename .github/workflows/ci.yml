@@ -20,6 +20,7 @@ jobs:
   # --------------------------------------------------
   # 1. TEST
   # --------------------------------------------------
+
   test:
     name: Test
     runs-on: ubuntu-latest
@@ -54,10 +55,10 @@ jobs:
         run: |
           pytest
 
-
   # --------------------------------------------------
   # 2. LINT
   # --------------------------------------------------
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -80,10 +81,10 @@ jobs:
         run: |
           ruff check src/api
 
-
   # --------------------------------------------------
   # 3. BUILD + PUSH DOCKER IMAGE
   # --------------------------------------------------
+
   build:
     name: Build and Push Docker Image
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
