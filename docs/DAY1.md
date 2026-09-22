@@ -35,7 +35,7 @@ The original CFPB data is very large, so using the complete dataset locally was 
 The final working dataset contains:
 
 * **50,000 complaints**
-* **18 original columns**
+* **16 original columns**
 * **8 product categories**
 * **50,000 non-null complaint narratives**
 
