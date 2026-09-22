@@ -7,12 +7,11 @@ from fastapi import FastAPI
 from src.api.logger import logger
 from src.api.model import ModelService
 from src.api.schemas import (
+    BatchPredictionRequest,
+    BatchPredictionResponse,
     PredictionRequest,
     PredictionResponse,
-    BatchPredictionRequest,
-    BatchPredictionResponse
 )
-
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 

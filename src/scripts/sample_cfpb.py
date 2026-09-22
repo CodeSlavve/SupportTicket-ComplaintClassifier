@@ -1,7 +1,8 @@
 import os
 import zipfile
-import requests
+
 import pandas as pd
+import requests
 
 # ============================================================
 # CONFIGURATION
@@ -46,7 +47,7 @@ def download_file(url, output_path):
         print(f"Already downloaded: {output_path}")
         return
 
-    print(f"\nDownloading:")
+    print("\nDownloading:")
     print(url)
 
     response = requests.get(url, stream=True, timeout=120)
@@ -110,21 +111,19 @@ def find_top_categories(zip_path, csv_name):
 
     product_counts = {}
 
-    with zipfile.ZipFile(zip_path) as z:
+    with zipfile.ZipFile(zip_path) as z, z.open(csv_name) as f:
 
-        with z.open(csv_name) as f:
+        reader = pd.read_csv(
+            f, usecols=["Product"], chunksize=CHUNK_SIZE, low_memory=False
+        )
 
-            reader = pd.read_csv(
-                f, usecols=["Product"], chunksize=CHUNK_SIZE, low_memory=False
-            )
+        for chunk in reader:
 
-            for chunk in reader:
+            counts = chunk["Product"].value_counts()
 
-                counts = chunk["Product"].value_counts()
+            for product, count in counts.items():
 
-                for product, count in counts.items():
-
-                    product_counts[product] = product_counts.get(product, 0) + count
+                product_counts[product] = product_counts.get(product, 0) + count
 
     counts = pd.Series(product_counts).sort_values(ascending=False)
 
@@ -159,83 +158,81 @@ def process_archive(zip_path, csv_name, quotas, collected):
         "Complaint ID",
     ]
 
-    with zipfile.ZipFile(zip_path) as z:
+    with zipfile.ZipFile(zip_path) as z, z.open(csv_name) as f:
 
-        with z.open(csv_name) as f:
+        reader = pd.read_csv(
+            f, usecols=columns, chunksize=CHUNK_SIZE, low_memory=False
+        )
 
-            reader = pd.read_csv(
-                f, usecols=columns, chunksize=CHUNK_SIZE, low_memory=False
+        for chunk_number, chunk in enumerate(reader, start=1):
+
+            # ------------------------------------------------
+            # Stop reading if all categories are complete
+            # ------------------------------------------------
+
+            active_categories = [
+                category for category, quota in quotas.items() if quota > 0
+            ]
+
+            if not active_categories:
+                print("\nAll category quotas filled.")
+                break
+
+            # ------------------------------------------------
+            # Remove empty narratives
+            # ------------------------------------------------
+
+            narrative = (
+                chunk["Consumer complaint narrative"]
+                .fillna("")
+                .astype(str)
+                .str.strip()
             )
 
-            for chunk_number, chunk in enumerate(reader, start=1):
+            chunk = chunk[narrative.ne("")]
 
-                # ------------------------------------------------
-                # Stop reading if all categories are complete
-                # ------------------------------------------------
+            # ------------------------------------------------
+            # Keep only categories still needing rows
+            # ------------------------------------------------
 
-                active_categories = [
-                    category for category, quota in quotas.items() if quota > 0
-                ]
+            chunk = chunk[chunk["Product"].isin(active_categories)]
 
-                if not active_categories:
-                    print("\nAll category quotas filled.")
-                    break
+            if chunk.empty:
+                continue
 
-                # ------------------------------------------------
-                # Remove empty narratives
-                # ------------------------------------------------
+            # ------------------------------------------------
+            # Fill each category
+            # ------------------------------------------------
 
-                narrative = (
-                    chunk["Consumer complaint narrative"]
-                    .fillna("")
-                    .astype(str)
-                    .str.strip()
-                )
+            for category in active_categories:
 
-                chunk = chunk[narrative.ne("")]
+                remaining = quotas[category]
 
-                # ------------------------------------------------
-                # Keep only categories still needing rows
-                # ------------------------------------------------
-
-                chunk = chunk[chunk["Product"].isin(active_categories)]
-
-                if chunk.empty:
+                if remaining <= 0:
                     continue
 
-                # ------------------------------------------------
-                # Fill each category
-                # ------------------------------------------------
+                category_rows = chunk[chunk["Product"] == category]
 
-                for category in active_categories:
+                if category_rows.empty:
+                    continue
 
-                    remaining = quotas[category]
+                # Never collect more than quota
+                take = min(remaining, len(category_rows))
 
-                    if remaining <= 0:
-                        continue
+                sampled = category_rows.sample(n=take, random_state=RANDOM_STATE)
 
-                    category_rows = chunk[chunk["Product"] == category]
+                collected[category].append(sampled)
 
-                    if category_rows.empty:
-                        continue
+                quotas[category] -= take
 
-                    # Never collect more than quota
-                    take = min(remaining, len(category_rows))
+                print(
+                    f"\r{category}: "
+                    f"{TARGET_ROWS // 8 - quotas[category]:,} / "
+                    f"{TARGET_ROWS // 8:,}",
+                    end="",
+                )
 
-                    sampled = category_rows.sample(n=take, random_state=RANDOM_STATE)
-
-                    collected[category].append(sampled)
-
-                    quotas[category] -= take
-
-                    print(
-                        f"\r{category}: "
-                        f"{TARGET_ROWS // 8 - quotas[category]:,} / "
-                        f"{TARGET_ROWS // 8:,}",
-                        end="",
-                    )
-
-            print()
+        print()
 
     return quotas
 
