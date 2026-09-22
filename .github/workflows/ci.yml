@@ -45,6 +45,13 @@ jobs:
           dvc remote modify --local gdrive gdrive_client_secret "${{ secrets.DVC_GDRIVE_CLIENT_SECRET }}"
           dvc remote modify --local gdrive gdrive_use_service_account false
 
+      - name: Debug DVC dependencies
+        run: |
+          pip show dvc
+          pip show dvc-gdrive
+          pip show pyOpenSSL
+          pip show cryptography
+
       - name: Pull DVC artifacts
         env:
           GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
