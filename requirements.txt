@@ -58,3 +58,4 @@ seaborn
 pytest
 httpx
 ipykernel
+ruff
