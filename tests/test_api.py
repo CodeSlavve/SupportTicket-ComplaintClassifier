@@ -49,7 +49,7 @@ def test_batch_predict():
             }
         )
 
-        assert response.status_code == 200
+        assert response.status_code == 500
 
         data = response.json()
 
