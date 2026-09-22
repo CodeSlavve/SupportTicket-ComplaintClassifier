@@ -12,6 +12,7 @@ datasets  # for loading/tokenizing DistilBERT data
 
 # --- Tracking & Experimentation ---
 mlflow
+dvc
 
 # --- Visualization (for EDA & Error Analysis) ---
 matplotlib

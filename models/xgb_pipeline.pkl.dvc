@@ -1,0 +1,5 @@
+outs:
+- md5: 8ab5d0d5926fef978355ca01a1d98fc9
+  size: 6633392
+  hash: md5
+  path: xgb_pipeline.pkl

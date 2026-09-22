@@ -1,0 +1,5 @@
+outs:
+- md5: 62b2a8edcc7be97d053f03ebe6c19849
+  size: 86130625
+  hash: md5
+  path: cfpb_sample_50k.csv
