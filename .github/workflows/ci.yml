@@ -45,13 +45,6 @@ jobs:
           dvc remote modify --local gdrive gdrive_client_secret "${{ secrets.DVC_GDRIVE_CLIENT_SECRET }}"
           dvc remote modify --local gdrive gdrive_use_service_account false
 
-      - name: Debug DVC dependencies
-        run: |
-          pip show dvc
-          pip show dvc-gdrive
-          pip show pyOpenSSL
-          pip show cryptography
-
       - name: Pull DVC artifacts
         env:
           GDRIVE_CREDENTIALS_DATA: ${{ secrets.GDRIVE_CREDENTIALS_DATA }}
@@ -113,20 +106,13 @@ jobs:
       - name: Install DVC
         run: |
           python -m pip install --upgrade pip
-          pip install "dvc[gdrive]" "pyOpenSSL>=26.4.0"
+          pip install "dvc[gdrive]==3.67.1" "dvc-gdrive==3.0.1" "pyOpenSSL==24.2.1" "cryptography==43.0.3"
 
       - name: Configure DVC Google Drive
         run: |
           dvc remote modify --local gdrive gdrive_client_id "${{ secrets.DVC_GDRIVE_CLIENT_ID }}"
           dvc remote modify --local gdrive gdrive_client_secret "${{ secrets.DVC_GDRIVE_CLIENT_SECRET }}"
           dvc remote modify --local gdrive gdrive_use_service_account false
-
-      - name: Debug DVC dependencies
-        run: |
-          pip show dvc
-          pip show dvc-gdrive
-          pip show pyOpenSSL
-          pip show cryptography
 
       - name: Pull DVC model artifacts
         env:
