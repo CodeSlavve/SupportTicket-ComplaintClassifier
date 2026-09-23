@@ -181,6 +181,8 @@ The model was stored under:
 models/distilbert/
 ```
 
+> *This folder, just like any other model.pkl file is not being tracked by github, It will only appear in your local machine if you train it.*
+
 The saved directory contains the files required to reload the fine-tuned transformer, including:
 
 ```text
@@ -218,39 +220,3 @@ The important information from the transformer experiment included:
 The experiment could then be compared against the classical MLflow runs from Day 2.
 
 ---
-
-## 11. Day 3 Outcome
-
-By the end of Day 3:
-
-* DistilBERT was fine-tuned for the 8-class CFPB complaint classification problem.
-* The same 35,000/7,500 train-validation split was used.
-* The same label mapping was maintained.
-* The model achieved **85.12% validation accuracy**.
-* The model achieved **85.09% Macro F1**.
-* The model achieved **85.09% Weighted F1**.
-* Per-class performance was evaluated.
-* The fine-tuned model and tokenizer were saved.
-* The transformer established a stronger validation benchmark than the classical XGBoost approach.
-
-The project now had two trained approaches:
-
-```text
-Classical NLP
-TF-IDF → XGBoost
-83.35% validation Macro F1
-
-Transformer NLP
-DistilBERT
-85.09% validation Macro F1
-```
-
----
-
-## Day 3 → Next Stage
-
-With both approaches trained and evaluated on the validation set, the next stage was to perform the final model evaluation and deeper analysis.
-
-The untouched **7,500-sample test set** would be used only after the model was finalized.
-
-This would provide the final generalization measurement and prevent the test set from influencing model selection.

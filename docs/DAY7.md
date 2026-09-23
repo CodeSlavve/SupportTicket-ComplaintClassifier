@@ -53,7 +53,6 @@ venv
 .venv
 data/
 notebooks/
-results/
 docs/
 mlruns/
 mlflow.db
@@ -152,7 +151,7 @@ The final image contains the FastAPI runtime, XGBoost/scikit-learn dependencies,
 
 ---
 
-# 6. GitHub Actions CI/CD
+## 6. GitHub Actions CI/CD
 
 After verifying the Docker container locally, a GitHub Actions workflow was created at:
 

@@ -14,7 +14,7 @@ After selecting the production model, its validation errors were analyzed to und
 
 ---
 
-# 1. Model Comparison
+## 1. Model Comparison
 
 The three models were compared using their validation Macro-F1 scores and operational characteristics.
 
@@ -39,9 +39,9 @@ The performance improvement therefore had to be considered alongside the additio
 
 ---
 
-# 2. Production Model Selection
+## 2. Production Model Selection
 
-## Selected Model: XGBoost
+### Selected Model: XGBoost
 
 XGBoost was selected as the official production model.
 
@@ -75,7 +75,7 @@ DistilBERT was therefore retained as an experimental benchmark, while XGBoost be
 
 ---
 
-# 3. XGBoost Error Analysis
+## 3. XGBoost Error Analysis
 
 After selecting XGBoost, its validation predictions were analyzed to understand where the model was making mistakes.
 
@@ -97,7 +97,7 @@ The analysis included:
 
 ---
 
-## 3.1 Major Confusion Pairs
+### 3.1 Major Confusion Pairs
 
 The most frequent validation confusions included:
 
@@ -126,7 +126,7 @@ These two categories accounted for a substantial number of errors in both direct
 
 ---
 
-# 4. Manual Inspection of Misclassified Complaints
+## 4. Manual Inspection of Misclassified Complaints
 
 Representative validation errors were manually inspected to determine whether the model was clearly incorrect or whether the complaint itself contained ambiguous signals.
 
@@ -144,7 +144,7 @@ This is relevant because such ambiguity represents a limitation of the classific
 
 ---
 
-# 5. Failure Patterns by Product Category
+## 5. Failure Patterns by Product Category
 
 The validation error rate was calculated separately for each actual product category.
 
@@ -169,7 +169,7 @@ Because the dataset was perfectly balanced, these differences were not caused by
 
 ---
 
-# 6. Failure Patterns by Complaint Length
+## 6. Failure Patterns by Complaint Length
 
 Complaint length was also examined to determine whether the amount of available text was associated with classification errors.
 
@@ -192,7 +192,7 @@ This is an observed relationship in the validation data and does not establish t
 
 ---
 
-# 7. Final Test Evaluation
+## 7. Final Test Evaluation
 
 Once XGBoost had been selected and the validation error analysis was completed, the previously untouched test set was evaluated.
 
@@ -228,7 +228,7 @@ The final test result became the official reported performance of the production
 
 ---
 
-# 8. Final Deployment Artifacts
+## 8. Final Deployment Artifacts
 
 After the final model evaluation, the artifacts required for inference were finalized.
 
@@ -263,37 +263,3 @@ Converts the numeric prediction produced by the classifier back into the origina
 The finalized model artifacts therefore match the files that will be loaded by the FastAPI service.
 
 ---
-
-# 9. Day 4 Outcome
-
-By the end of Day 4, the project had:
-
-* compared Logistic Regression, XGBoost, and DistilBERT;
-* evaluated the models using validation Macro-F1;
-* selected **XGBoost as the production model** based on the performance/resource tradeoff;
-* identified the major XGBoost confusion pairs;
-* manually inspected validation errors;
-* identified category overlap as an important source of ambiguity;
-* identified higher error rates among shorter complaints;
-* evaluated category-specific failure rates;
-* locked the production model before accessing the test set;
-* evaluated XGBoost once on the untouched test set;
-* recorded the final **83.26% Macro-F1** and **83.23% accuracy**;
-* finalized the model artifacts required for deployment.
-
-The model-selection stage was therefore completed before moving to the deployment stage.
-
----
-
-# 10. Transition to Day 5
-
-With the production model locked and its artifacts finalized, the project moved from model development into deployment.
-
-The next stage was to build the FastAPI service around:
-
-```text
-models/xgb_pipeline.pkl
-models/label_encoder.pkl
-```
-
-The API would expose the trained classifier through a `/predict` endpoint that accepts complaint text and returns the predicted product category.

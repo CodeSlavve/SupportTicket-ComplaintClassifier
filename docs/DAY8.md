@@ -120,11 +120,6 @@ Prediction log with latency and confidence
 ```
 
 ---
-
-## 8. Final Outcome
-
-The project now has a publicly reachable complaint-classification API backed by the containerized FastAPI service and trained model artifacts.
-
 **Live API documentation:**
 ```text
 https://supportticket-complaintclassifier.onrender.com/docs

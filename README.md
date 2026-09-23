@@ -159,7 +159,9 @@ For the complete project:
 pip install -r requirements.txt
 ```
 
-For API-only usage:
+For API-only usage: 
+
+> *requirements-api.txt contains only the minimal dependencies required to run the deployed FastAPI service, while requirements.txt includes the full training and experimentation stack (including libraries like PyTorch and transformers) used for model development and notebooks, keeping the production API lean and separate from development workloads.*
 
 ```bash
 pip install -r requirements-api.txt
@@ -187,6 +189,29 @@ http://localhost:8000/docs
 
 ## Reproduction
 
+### Reproducing the Dataset and Model Pipeline
+
+To reproduce the project from a clean checkout, first generate the dataset with:
+
+```bash
+python src/scripts/sample_cfpb.py
+```
+
+This script creates the local CFPB sample dataset used throughout the project. After the dataset is available, run the notebook sequence in order to reproduce the model workflow:
+
+```
+notebooks/day1-EDA.ipynb
+notebooks/day2-baseline-modeling-pipline.ipynb
+notebooks/day3-distilbert.ipynb
+notebooks/day4-error-analysis.ipynb
+```
+
+Following this order recreates the exploratory analysis, classical baselines, transformer experiment, and error analysis used to produce the final production artifacts.
+
+> Suggestion: the DistilBERT training notebook is best run in Google Colab because the fine-tuning workflow is GPU-intensive and benefits from the additional memory and runtime available there.
+
+> This reproduction path does not require access to the project's DVC remote. The dataset is generated locally by sample_cfpb.py, while DVC remains used for versioning and CI/CD artifact retrieval.
+
 ### DVC
 
 The production dataset and model artifacts are versioned with DVC.
@@ -211,7 +236,7 @@ Restore the tracked artifacts:
 dvc pull
 ```
 
-DVC credentials are kept outside version control.
+DVC credentials are kept outside version control. You can use the DVC method to reproduce the Data/model versioning.
 
 ### Docker
 
@@ -219,6 +244,12 @@ Build the production container:
 
 ```bash
 docker build -t ticket-classifier .
+```
+
+Or directly pull the created docker image:
+
+```bash
+docker pull ghcr.io/codeslavve/supportticket-complaintclassifier:latest
 ```
 
 Run it:
@@ -369,34 +400,40 @@ SupportTicket-ComplaintClassifier/
 │   ├── DAY6.md
 │   ├── DAY7.md
 │   ├── DAY8.md
+│   ├── project_writeup.md
 │   └── MODEL_CARD.md
 │
 ├── models/
 │   ├── xgb_pipeline.pkl
-│   ├── label_encoder.pkl
-│   └── distilbert/
+│   └── label_encoder.pkl
 │
 ├── notebooks/
-│
-├── results/
-│   └── confusion_matrix.png
+│   ├── day0-sanity-check.ipynb
+│   ├── day1-EDA.ipynb
+│   ├── day2-baseline-modeling-pipline.ipynb
+│   ├── day3-distilbert.ipynb
+│   └── day4-error-analysis.ipynb
 │
 ├── src/
-│   └── api/
-│       ├── __init__.py
-│       ├── main.py
-│       ├── model.py
-│       ├── schemas.py
-│       └── logger.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── main.py
+│   │   ├── model.py
+│   │   ├── schemas.py
+│   │   └── logger.py
+│   ├── scripts/
+│   │   └── sample_cfpb.py
+│   └── __init__.py
+│
 │
 ├── tests/
+│   └── test_api.py
 │
 ├── Dockerfile
 ├── .dockerignore
 ├── .gitignore
 ├── requirements.txt
 ├── requirements-api.txt
-├── project_writeup.md
 └── README.md
 ```
 

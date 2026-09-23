@@ -181,10 +181,6 @@ The main findings from the initial dataset exploration were:
 
 ---
 
-## 10. Day 1 Outcome
-
-By the end of Day 1, the raw CFPB data had been converted into a clean and balanced dataset suitable for machine learning.
-
 ### Final dataset
 
 ```text

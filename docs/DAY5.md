@@ -10,7 +10,7 @@ The service was also structured with deployment in mind so that it does not depe
 
 ---
 
-# 1. FastAPI Service
+## 1. FastAPI Service
 
 The API was organized into separate modules:
 
@@ -34,7 +34,7 @@ This keeps the inference service separate from the notebooks and model developme
 
 ---
 
-# 2. Model Loading
+## 2. Model Loading
 
 The API uses the finalized production artifacts:
 
@@ -52,7 +52,7 @@ This prevents the model from being loaded repeatedly for individual requests and
 
 ---
 
-# 3. Request Validation
+## 3. Request Validation
 
 Pydantic was used to define the API input and output contracts.
 
@@ -74,7 +74,7 @@ Invalid requests are rejected by FastAPI/Pydantic before reaching the ML model.
 
 ---
 
-# 4. Prediction Endpoints
+## 4. Prediction Endpoints
 
 The service provides three endpoints:
 
@@ -95,7 +95,7 @@ The batch endpoint returns the corresponding prediction and confidence for each 
 
 ---
 
-# 5. Batch Inference
+## 5. Batch Inference
 
 Batch prediction was added to allow multiple complaints to be passed to the model together rather than making a separate model call for every complaint.
 
@@ -119,7 +119,7 @@ The batch endpoint supports up to **600 complaints per request**.
 
 ---
 
-# 6. API Testing
+## 6. API Testing
 
 Automated API tests were implemented using:
 
@@ -140,7 +140,7 @@ The completed API test suite passes successfully.
 
 ---
 
-# 7. Structured API Logging
+## 7. Structured API Logging
 
 Structured application logging was added to capture useful inference metadata without storing the actual complaint text.
 
@@ -186,7 +186,7 @@ The logging layer also records model loading failures during application startup
 
 ---
 
-# 8. Deployment-Ready Path Handling
+## 8. Deployment-Ready Path Handling
 
 Model paths are resolved from the project root using `pathlib` rather than relying on the directory from which the application is launched.
 
@@ -202,28 +202,3 @@ or on running the application from inside the `notebooks/` directory.
 This makes the service self-contained and prepares it for the Docker packaging stage.
 
 ---
-
-# 9. Day 5 Outcome
-
-By the end of Day 5, the project had:
-
-* converted the production XGBoost model into a FastAPI inference service;
-* implemented `/health`;
-* implemented `/predict`;
-* implemented `/predict/batch`;
-* added Pydantic request/response validation;
-* added batch input validation;
-* implemented startup model loading;
-* added automated API tests using `pytest` and `TestClient`;
-* removed notebook-specific path assumptions;
-* verified that the API test suite passes.
-* added structured prediction logging to both console output and `logs/api.log`;
-* ensured complaint text itself is not logged;
-
-The project has now moved from an offline trained model into a reusable local inference service.
-
----
-
-# 10. Transition to Day 6
-
-The next stage can focus on data and model versioning with DVC before moving into containerization and CI/CD.

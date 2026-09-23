@@ -2,7 +2,6 @@ venv
 .venv
 data/
 notebooks/
-results/
 docs/
 mlruns/
 mlflow.db

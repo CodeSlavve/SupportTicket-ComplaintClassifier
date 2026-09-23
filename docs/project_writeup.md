@@ -792,12 +792,6 @@ SupportTicket-ComplaintClassifier/
 │   ├── day3-distilbert.ipynb
 │   └── day4-error-analysis.ipynb
 │
-├── results/
-│   ├── confusion_matrix.png
-│   ├── classification_report.txt
-│   ├── xgb_confusion_pairs.csv
-│   └── xgb_validation_errors.csv
-│
 ├── src/
 │   ├── api/
 │   │   ├── logger.py
@@ -815,7 +809,6 @@ SupportTicket-ComplaintClassifier/
 ├── Dockerfile
 ├── requirements.txt
 ├── requirements-api.txt
-├── project_writeup.md
 └── ...
 ```
 

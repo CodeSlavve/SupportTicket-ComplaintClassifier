@@ -137,6 +137,11 @@ Using the same TF-IDF representation allowed the two models to be compared under
 
 ## 6. Model Evaluation
 
+| Model               | Validation Macro F1 |
+| ------------------- | ------------------: |
+| Logistic Regression |              82.94% |
+| XGBoost             |              83.35% |
+
 Both models were evaluated on the same validation set.
 
 The main metrics tracked were:
@@ -222,28 +227,3 @@ models/label_encoder.pkl
 These artifacts represent the classical baseline that would be used for later comparison and, eventually, inference.
 
 ---
-
-## 10. Day 2 Outcome
-
-By the end of Day 2:
-
-* The cleaned complaint text was converted into TF-IDF features.
-* A 20,000-feature unigram + bigram representation was established.
-* Logistic Regression was trained as the first classical baseline.
-* XGBoost was trained as the second classical baseline.
-* Both models were evaluated on the same validation set.
-* MLflow was introduced for experiment tracking.
-* XGBoost was selected as the classical baseline.
-* The XGBoost pipeline and label encoder were saved as reusable artifacts.
-
-The project now had a reliable classical NLP benchmark against which the upcoming **fine-tuned DistilBERT model** could be compared.
-
----
-
-## Day 2 → Day 3
-
-Day 2 established the classical baseline.
-
-Day 3 moves to transformer-based NLP, where the goal is to fine-tune **DistilBERT** on the same complaint classification problem and compare its performance against the established TF-IDF + XGBoost baseline.
-
-The comparison will use the same underlying classification task and held-out evaluation methodology to determine how the transformer approach performs relative to the classical NLP approach.
