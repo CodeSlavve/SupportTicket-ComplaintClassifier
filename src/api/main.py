@@ -29,7 +29,6 @@ model_service = ModelService(
 async def lifespan(app: FastAPI):
     logger.info("Loading model artifacts...")
     
-    model_service.load()
     try:
         model_service.load()
         logger.info("Model artifacts loaded successfully")
