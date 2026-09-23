@@ -19,16 +19,12 @@ Render hosts the containerized FastAPI application and exposes it as a public we
 ## 2. Live Application URL
 
 The deployed API is publicly available at:
-
-```text
 https://supportticket-complaintclassifier.onrender.com
-```
+
 
 The interactive FastAPI documentation is available at:
-
-```text
 https://supportticket-complaintclassifier.onrender.com/docs
-```
+
 
 The `/docs` page provides a browser-based interface for inspecting and testing the API endpoints, including `/health`, `/predict`, and `/predict/batch`.
 
@@ -83,7 +79,7 @@ Latency was measured for both the local service and the Render deployment.
 
 The production request was approximately **27.89 ms** slower than the local request.
 
-This difference is expected because a live deployment includes network travel and cloud-hosting overhead in addition to model inference. The deployed service still returned a prediction in under 100 ms for the measured request.
+This difference is expected because a live deployment includes network travel and cloud-hosting overhead in addition to model inference. The measured production request completed in 84.14 ms.
 
 ---
 
@@ -138,4 +134,4 @@ https://supportticket-complaintclassifier.onrender.com/docs
 
 **Measured local prediction latency:** `56.25 ms`
 
-The service is ready to be shared as a portfolio or resume project, with a live endpoint that demonstrates the full path from model development and API implementation to containerization, CI/CD, and cloud deployment.
+The project now demonstrates the complete path from model development and evaluation to API implementation, containerization, CI/CD, and cloud deployment.

@@ -19,8 +19,8 @@ The finalized dataset contained:
 * **50,000 complaints**
 * **8 product categories**
 * **6,250 samples per category**
-* `cleaned_complaint_text` — input text
-* `Products` — target
+* `clean_complaint_text` — input text
+* `Product` — target
 
 The dataset was split into:
 
@@ -116,11 +116,11 @@ After fine-tuning, DistilBERT was evaluated on the **7,500-sample validation set
 
 | Metric      |      Score |
 | ----------- | ---------: |
-| Accuracy    | **85.00%** |
-| Macro F1    | **85.00%** |
-| Weighted F1 | **85.00%** |
+| Accuracy    | **85.12%** |
+| Macro F1    | **85.09%** |
+| Weighted F1 | **85.09%** |
 
-The transformer therefore established an **85% validation benchmark** for the project.
+The transformer therefore established an **85.12%** validation benchmark, with **85.09%** Macro F1.
 
 ---
 
@@ -158,14 +158,14 @@ The comparison was based on the same validation set.
 
 | Model            |   Accuracy |   Macro F1 | Weighted F1 |
 | ---------------- | ---------: | ---------: | ----------: |
-| TF-IDF + XGBoost |    ~83.32% |      83.34 |       83.34 |
-| **DistilBERT**   | **85.00%** | **85.00%** |  **85.00%** |
+| TF-IDF + XGBoost |    ~83.32% |      83.35 |       83.35 |
+| **DistilBERT**   | **85.12%** | **85.09%** |  **85.09%** |
 
-The XGBoost validation accuracy was approximately **83.32%**, while DistilBERT achieved **85.00%** validation accuracy.
+The XGBoost validation accuracy was approximately **83.32%**, while DistilBERT achieved **85.12%** validation accuracy.
 
-This gave DistilBERT a validation accuracy improvement of approximately **1.68 percentage points**.
+This gave DistilBERT a validation accuracy improvement of approximately **1.8 percentage points**.
 
-More importantly, the transformer established a higher validation Macro F1 benchmark than the classical approach, making it the stronger candidate based on the validation results.
+DistilBERT achieved the higher validation Macro F1, establishing the transformer benchmark for the subsequent model-selection analysis.
 
 The final model decision was still reserved for the later evaluation stage rather than being based solely on the validation set.
 
@@ -195,13 +195,13 @@ The label encoder remained separate:
 models/label_encoder.pkl
 ```
 
-This means the complete transformer inference setup consists of the DistilBERT model/tokenizer directory together with the label encoder.
+The DistilBERT model was retained locally for evaluation and model comparison. It was not included as a Git-tracked production artifact.
 
 ---
 
 ## 10. MLflow
 
-The DistilBERT experiment was prepared for integration with the project's MLflow experiment tracking.
+The key results from the DistilBERT experiment were recorded in the project's MLflow experiment for comparison with the classical model runs.
 
 The important information from the transformer experiment included:
 
@@ -226,9 +226,9 @@ By the end of Day 3:
 * DistilBERT was fine-tuned for the 8-class CFPB complaint classification problem.
 * The same 35,000/7,500 train-validation split was used.
 * The same label mapping was maintained.
-* The model achieved **85.00% validation accuracy**.
-* The model achieved **85.00% Macro F1**.
-* The model achieved **85.00% Weighted F1**.
+* The model achieved **85.12% validation accuracy**.
+* The model achieved **85.09% Macro F1**.
+* The model achieved **85.09% Weighted F1**.
 * Per-class performance was evaluated.
 * The fine-tuned model and tokenizer were saved.
 * The transformer established a stronger validation benchmark than the classical XGBoost approach.
@@ -238,11 +238,11 @@ The project now had two trained approaches:
 ```text
 Classical NLP
 TF-IDF → XGBoost
-~83.32% validation accuracy
+83.35% validation Macro F1
 
 Transformer NLP
 DistilBERT
-85.00% validation accuracy
+85.09% validation Macro F1
 ```
 
 ---

@@ -19,14 +19,16 @@ src/
 └── api/
     ├── main.py
     ├── model.py
-    └── schemas.py
+    ├── schemas.py
+    └── logger.py
 ```
 
 Each module has a specific responsibility:
 
-* `schemas.py` — request and response validation using Pydantic;
-* `model.py` — model loading and inference;
-* `main.py` — FastAPI application and API endpoints.
+* `schemas.py` — request and response validation using Pydantic
+* `model.py` — model loading and inference
+* `main.py` — FastAPI application and API endpoints
+* `logger.py` — custom logging
 
 This keeps the inference service separate from the notebooks and model development code.
 
@@ -169,6 +171,8 @@ src/api/logger.py
 
 The logger writes to both the API console and the `logs/api.log` file.
 
+In deployed environments such as Render, stdout logs are available through the platform's service logs, while the file logger writes to logs/api.log within the container filesystem.
+
 Example prediction log:
 
 ```text
@@ -213,6 +217,8 @@ By the end of Day 5, the project had:
 * added automated API tests using `pytest` and `TestClient`;
 * removed notebook-specific path assumptions;
 * verified that the API test suite passes.
+* added structured prediction logging to both console output and `logs/api.log`;
+* ensured complaint text itself is not logged;
 
 The project has now moved from an offline trained model into a reusable local inference service.
 
@@ -220,4 +226,4 @@ The project has now moved from an offline trained model into a reusable local in
 
 # 10. Transition to Day 6
 
-With the core API working and tested, the next stage can focus on **hardening the service** and improving its reliability before moving toward data/model versioning and containerization.
+The next stage can focus on data and model versioning with DVC before moving into containerization and CI/CD.

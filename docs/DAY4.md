@@ -32,7 +32,7 @@ However, its improvement over XGBoost was relatively small:
 DistilBERT: 85.09%
 XGBoost:    83.35%
 
-Difference: 1.75 percentage points
+Difference: 1.74 percentage points
 ```
 
 The performance improvement therefore had to be considered alongside the additional operational requirements of the transformer model.
@@ -49,10 +49,10 @@ The decision was based on the tradeoff between predictive performance and deploy
 
 Compared with XGBoost, DistilBERT:
 
-* had a model size approximately **40.5× larger**;
-* used approximately **7.9× more measured RAM**;
-* required substantially more computational resources for CPU processing;
-* took approximately **26.5 minutes to process the 7,500-example validation set** in the CPU benchmark.
+* had a model size approximately **40.5× larger**
+* used approximately **7.9× more measured RAM**
+* required substantially more computational resources for CPU processing
+* required substantially more computational resources for CPU-based inference and had higher measured memory usage
 
 XGBoost achieved **83.35% validation Macro-F1** while requiring substantially fewer resources and providing a simpler inference pipeline.
 

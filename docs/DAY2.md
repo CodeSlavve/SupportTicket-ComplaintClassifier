@@ -22,8 +22,8 @@ The finalized dataset from Day 1 contained:
 * **50,000 complaints**
 * **8 product categories**
 * **6,250 samples per category**
-* `cleaned_complaint_text` — input text
-* `Products` — target label
+* `clean_complaint_text` — input text
+* `Product` — target label
 
 The dataset was split into three subsets:
 
@@ -42,7 +42,7 @@ The test set was kept untouched and reserved for the final evaluation after the 
 
 ## 2. Label Encoding
 
-The `Products` target column contains categorical text labels.
+The `Product` target column contains categorical text labels.
 
 These labels were converted into numerical class IDs using a `LabelEncoder` so that the machine learning models could work with the target values.
 
@@ -187,7 +187,7 @@ This made it possible to compare the two experiments through the MLflow interfac
 
 ## 8. Baseline Model Selection
 
-After evaluating both classical models, XGBoost was selected as the classical baseline to carry forward.
+After evaluating both classical models, XGBoost was selected as the **classical baseline** to carry forward.
 
 The purpose of this selection was not to declare XGBoost the final production model at this stage.
 

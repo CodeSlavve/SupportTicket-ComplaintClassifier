@@ -10,7 +10,7 @@ Three models were evaluated:
 | **XGBoost**         |          **83.35%** | **6.33 MB** | **88.77 MB** |         **0.55 ms** |
 | DistilBERT          |          **85.09%** |   256.12 MB |    703.36 MB |             0.82 ms |
 
-DistilBERT achieved the highest validation Macro-F1 at **85.09%**, outperforming XGBoost by **1.75 percentage points**. However, this improvement came with substantially higher resource requirements.
+DistilBERT achieved the highest validation Macro-F1 at **85.09%**, outperforming XGBoost by **1.74 percentage points**. However, this improvement came with substantially higher resource requirements.
 
 Compared with XGBoost:
 

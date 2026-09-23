@@ -7,3 +7,4 @@ docs/
 mlruns/
 mlflow.db
 distilbert/
+mlartifacts/

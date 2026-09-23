@@ -39,7 +39,7 @@ COPY models/label_encoder.pkl ./models/label_encoder.pkl
 
 EXPOSE 8000
 
-CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "uvicorn src.api.main:app --host 0.0.0.0 --port ${PORT:-8000}"]
 ```
 
 The dependency file is copied and installed before the application source code so Docker can reuse the dependency layer when only application code changes.
@@ -58,6 +58,7 @@ docs/
 mlruns/
 mlflow.db
 distilbert/
+mlartifacts/
 ```
 
 This keeps the image smaller and prevents development and training artifacts from being included in the production container.
@@ -209,7 +210,7 @@ The workflow runs:
 ruff check src/
 ```
 
-This catches import-order issues and other Python code-quality problems before the Docker image is built.
+This checks the Python source code for linting and code-quality issues before the Docker image is built.
 
 ---
 
@@ -257,7 +258,7 @@ tags: |
   ${{ env.IMAGE_NAME }}:${{ github.sha }}
 ```
 
-The `latest` tag provides a convenient reference to the current production image, while the commit SHA identifies the exact Git revision that produced the image.
+The `latest` tag provides a convenient reference to the most recently published image, while the commit SHA identifies the exact Git revision that produced the image.
 
 This makes it possible to trace a deployed image back to its source code revision.
 
@@ -349,4 +350,4 @@ Push image to GHCR
 Tagged with latest + Git SHA
 ```
 
-The resulting GHCR image is ready to be used as the deployment artifact for the next stage of the project.
+The resulting GHCR image was published successfully and provides the container image used for the deployment stage.

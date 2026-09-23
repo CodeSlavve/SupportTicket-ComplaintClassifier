@@ -112,55 +112,35 @@ The resulting dataset is therefore perfectly balanced across the eight target cl
 
 ## 6. Final Dataset Structure
 
-After the required filtering, cleaning, and category selection, the original CFPB columns that were not required for text classification were removed.
+After filtering and category selection, the sampled CFPB dataset contained 50,000 complaints across the eight selected product categories.
 
-The final dataset was reduced to two columns:
+The working source dataset retained the relevant CFPB fields required during the data preparation stage.
 
-### Dataset Schema
+During preprocessing, the data was reduced to the two fields required for model training:
+
+### Modeling Dataset Schema
 
 | Column | Purpose |
 | :--- | :--- |
-| `cleaned_complaint_text` | Cleaned consumer complaint narrative used as the model input |
-| `Products` | Target product category used for classification (8 classes) |
+| `clean_complaint_text` | Cleaned consumer complaint narrative used as the model input |
+| `Product` | Target product category used for classification (8 classes) |
 
-The final dataset therefore contains only the information required for the text classification task.
+The modeling dataset therefore contains only the information required for the downstream text classification pipeline.
 
-Rows:     50,000
-Columns:  2
+The sampled source dataset is stored at:
 
-The final dataset was saved as:
-
+```text
 data/cfpb_sample_50k.csv
+```
 
 ---
 
-## 7. Final Class Distribution
 
-The dataset was balanced across the eight selected product categories.
-
-Each category contains exactly **6,250 complaints**:
-
-### Class Distribution (After Cleaning & Balancing)
-
-| Product Category | Samples |
-| :--- | :--- |
-| Mortgage | 6,250 |
-| Debt collection | 6,250 |
-| Credit reporting or other personal consumer reports | 6,250 |
-| Vehicle loan or lease | 6,250 |
-| Payday loan, title loan, personal loan, or advance loan | 6,250 |
-| Credit card | 6,250 |
-| Money transfer, virtual currency, or money service | 6,250 |
-| Checking or savings account | 6,250 |
-| **Total** | **50,000** |
-
-This produced a perfectly balanced classification dataset, with each class representing 12.5% of the total dataset.
-
-## 8. Text Cleaning
+## 7. Text Preprocessing
 
 The original `Consumer complaint narrative` field was processed to create the final:
 
-`cleaned_complaint_text`
+`clean_complaint_text`
 
 The purpose of this preprocessing was to make the complaint text suitable for downstream NLP processing while retaining the information needed to identify the financial product involved.
 
@@ -168,10 +148,10 @@ The original raw narrative field was not retained in the final modeling dataset.
 
 The final dataset therefore separates the two essential components of the problem:
 
-cleaned_complaint_text  →  Input feature
-Products                →  Target label
+clean_complaint_text  →  Input feature
+Product                →  Target label
 
-## 9. Final Data Quality Checks
+## 8. Final Data Quality Checks
 
 Before moving to modeling, the final dataset was checked to ensure that:
 
@@ -184,26 +164,9 @@ Before moving to modeling, the final dataset was checked to ensure that:
 
 This produced a compact dataset specifically designed for the classification pipeline.
 
-## 10. Day 1 Outcome
-
-By the end of Day 1, the large and noisy CFPB source data had been transformed into a focused, balanced text-classification dataset.
-
-Final dataset
-Dataset:       CFPB Consumer Complaints
-Samples:       50,000
-Columns:       2
-Input:         cleaned_complaint_text
-Target:        Products
-Classes:       8
-Samples/class: 6,250
-Distribution:  Balanced
-Saved to:      data/cfpb_sample_50k.csv
-
-The dataset was now ready for the modeling stage, where the complaint text would be converted into numerical features using TF-IDF and used to train baseline classification models.
-
 ---
 
-## 11. Key Findings from Day 1
+## 9. Key Findings from Day 1
 
 The main findings from the initial dataset exploration were:
 
@@ -218,7 +181,7 @@ The main findings from the initial dataset exploration were:
 
 ---
 
-## 12. Day 1 Outcome
+## 10. Day 1 Outcome
 
 By the end of Day 1, the raw CFPB data had been converted into a clean and balanced dataset suitable for machine learning.
 
