@@ -2,11 +2,20 @@ name: CI/CD
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - 'notebooks/**'
+      - 'results/**' 
+
   pull_request:
-    branches:
-      - main
+    branches: [main]
+    paths-ignore:
+      - 'docs/**'
+      - '**.md'
+      - 'notebooks/**'
+      - 'results/**'   
 
 permissions:
   contents: read
