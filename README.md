@@ -460,7 +460,7 @@ Detailed documentation is available in [`docs/`](docs/).
 | [`DAY7.md`](docs/DAY7.md) | Docker and CI/CD |
 | [`DAY8.md`](docs/DAY8.md) | Render deployment |
 | [`MODEL_CARD.md`](docs/MODEL_CARD.md) | Model details, capabilities, performance, and limitations |
-| [`project_writeup.md`](project_writeup.md) | Complete project development write-up |
+| [`project_writeup.md`](docs/project_writeup.md) | Complete project development write-up |
 
 ---
 
