@@ -128,14 +128,14 @@ For detailed model information, see [`docs/MODEL_CARD.md`](docs/MODEL_CARD.md).
 
 ## Quick Start
 
-### Clone
+### 1) Clone the repository
 
 ```bash
 git clone https://github.com/CodeSlavve/SupportTicket-ComplaintClassifier.git
 cd SupportTicket-ComplaintClassifier
 ```
 
-### Create Virtual Environment
+### 2) Create Virtual Environment
 
 **Windows:**
 
@@ -151,7 +151,7 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-### Install Dependencies
+### 3) Install Dependencies
 
 For the complete project:
 
@@ -161,29 +161,27 @@ pip install -r requirements.txt
 
 For API-only usage: 
 
-> *requirements-api.txt contains only the minimal dependencies required to run the deployed FastAPI service, while requirements.txt includes the full training and experimentation stack (including libraries like PyTorch and transformers) used for model development and notebooks, keeping the production API lean and separate from development workloads.*
-
 ```bash
 pip install -r requirements-api.txt
 ```
 
-### Run the API
+> `requirements-api.txt` contains only the minimal dependencies required to run the deployed FastAPI service.  
+> `requirements.txt` includes the full training and experimentation stack, including libraries such as PyTorch and Transformers used for model development and notebooks.
+
+### 4) Run the API
 
 ```bash
 uvicorn src.api.main:app --reload
 ```
 
-Local API:
+Open:
 
 ```text
-http://localhost:8000
+Local API: http://localhost:8000
+Swagger UI: http://localhost:8000/docs
 ```
 
-Local Swagger UI:
-
-```text
-http://localhost:8000/docs
-```
+> Note: The API can start successfully, but it will not return predictions unless the required model artifacts are available locally, for example via DVC restore or another approved model-access method described in this project.
 
 ---
 
@@ -191,7 +189,7 @@ http://localhost:8000/docs
 
 ### Reproducing the Dataset and Model Pipeline
 
-To reproduce the project from a clean checkout, first generate the dataset with:
+To reproduce the project from a clean checkout, first generate the sample dataset with:
 
 ```bash
 python src/scripts/sample_cfpb.py
@@ -246,13 +244,13 @@ Build the production container:
 docker build -t ticket-classifier .
 ```
 
-Or directly pull the created docker image:
+Or directly pull the published docker image:
 
 ```bash
 docker pull ghcr.io/codeslavve/supportticket-complaintclassifier:latest
 ```
 
-Run it:
+Run the container:
 
 ```bash
 docker run -p 8000:8000 ticket-classifier
@@ -263,6 +261,10 @@ Then open:
 ```text
 http://localhost:8000/docs
 ```
+
+---
+
+## Validation
 
 ### Tests
 
@@ -276,7 +278,9 @@ pytest
 ruff check src/
 ```
 
-### CI/CD
+---
+
+## CI/CD
 
 GitHub Actions automatically runs tests and linting on repository changes.
 
